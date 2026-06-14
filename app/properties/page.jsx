@@ -1,3 +1,13 @@
+export const metadata = {
+  title: 'Browse All Properties - PropertyPulse',
+  description: 'Explore our collection of rental properties. Find your perfect home from thousands of verified listings.',
+  keywords: 'rental properties, apartments, houses for rent, real estate listings',
+  openGraph: {
+    title: 'Browse All Properties - PropertyPulse',
+    description: 'Find your perfect rental property from our verified listings',
+    type: 'website',
+  },
+};
 import PropertyCard from '@/components/PropertyCard';
 import Property from '@/models/Property';
 import connectDB from '@/config/database';

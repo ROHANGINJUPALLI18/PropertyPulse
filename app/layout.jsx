@@ -7,8 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 export const metadata = {
   title: 'PropertyPulse',
-  description: 'Find The Perfect Rental Property',
-  keywords: 'rental, property, real estate',
+  description: 'Find The Perfect Dream Rental Property',
+  keywords: 'rental, property, real estate , Dream Property, PropertyPulse, rent, house, apartment, search, listings, neighborhood, amenities, budget',
 };
 
 const MainLayout = ({ children }) => {

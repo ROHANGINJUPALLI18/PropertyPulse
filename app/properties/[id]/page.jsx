@@ -10,6 +10,61 @@ import Link from 'next/link';
 import { FaArrowLeft } from 'react-icons/fa';
 import { convertToSerializeableObject } from '@/utils/convertToObject';
 
+
+
+export async function generateMetadata({ params }) {
+  try {
+    const { id } = await params;
+    await connectDB();
+    const propertyDoc = await Property.findById(id).lean();
+    
+    if (!propertyDoc) {
+      return {
+        title: 'Property Not Found - PropertyPulse',
+        description: 'The property you are looking for does not exist.',
+      };
+    }
+
+    const property = convertToSerializeableObject(propertyDoc);
+    const baseUrl = process.env.NEXT_PUBLIC_DOMAIN || 'https://property-pulse-beige-eight.vercel.app';
+
+    return {
+      title: `${property.name} - ${property.type} Property in ${property.location.city}, ${property.location.state} | PropertyPulse`,
+      description: `Beautiful ${property.type} with ${property.beds} beds, ${property.baths} baths at ₹${property.price}/month. ${property.description.substring(0, 120)}...`,
+      keywords: `${property.type}, ${property.location.city}, ${property.location.state}, rental property, apartment, real estate`,
+      openGraph: {
+        title: `${property.name} - PropertyPulse`,
+        description: `${property.type} at ₹${property.price}/month - ${property.beds}BHK in ${property.location.city}, ${property.location.state}`,
+        url: `${baseUrl}/properties/${id}`,
+        type: 'website',
+        images: [
+          {
+            url: property.images[0] || 'https://via.placeholder.com/1200x630',
+            width: 1200,
+            height: 630,
+            alt: property.name,
+          },
+        ],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: `${property.name} - PropertyPulse`,
+        description: `${property.type} at ₹${property.price}/month in ${property.location.city}, ${property.location.state}`,
+        images: [property.images[0] || 'https://via.placeholder.com/1200x630'],
+      },
+      alternates: {
+        canonical: `${baseUrl}/properties/${id}`,
+      },
+    };
+  } catch (error) {
+    console.error('Error generating metadata:', error);
+    return {
+      title: 'PropertyPulse - Find Perfect Rental Properties',
+      description: 'Browse the best rental properties in your area',
+    };
+  }
+}
+
 const PropertyPage = async ({ params }) => {
   const {id} = await params;
   await connectDB();
