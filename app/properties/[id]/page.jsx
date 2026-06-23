@@ -31,7 +31,7 @@ export async function generateMetadata({ params }) {
     return {
       title: `${property.name} - ${property.type} Property in ${property.location.city}, ${property.location.state} | PropertyPulse`,
       description: `Beautiful ${property.type} with ${property.beds} beds, ${property.baths} baths at ₹${property.price}/month. ${property.description.substring(0, 120)}...`,
-      keywords: `${property.type}, ${property.location.city}, ${property.location.state}, rental property, apartment, real estate`,
+      keywords: `${property.type}, ${property.location.city}, ${property.location.state}, rental property, apartment, real estate, rental listings`,
       openGraph: {
         title: `${property.name} - PropertyPulse`,
         description: `${property.type} at ₹${property.price}/month - ${property.beds}BHK in ${property.location.city}, ${property.location.state}`,
@@ -50,6 +50,7 @@ export async function generateMetadata({ params }) {
         card: 'summary_large_image',
         title: `${property.name} - PropertyPulse`,
         description: `${property.type} at ₹${property.price}/month in ${property.location.city}, ${property.location.state}`,
+        // the below placeholders does not exsist over an long term 
         images: [property.images[0] || 'https://via.placeholder.com/1200x630'],
       },
       alternates: {
